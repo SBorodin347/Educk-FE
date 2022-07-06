@@ -4,6 +4,7 @@ import {ROLE, User} from "../../models/user.model";
 import {UserService} from "../../services/user/user.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
+import {StudentService} from "../../services/user/student.service";
 
 
 @Component({
@@ -19,7 +20,7 @@ export class UserFormComponent implements OnInit {
   form: FormGroup
   private subscription: Subscription = new Subscription();
 
-  constructor(private userService: UserService, private router: Router, private activeRouter: ActivatedRoute) {
+  constructor(private userService: UserService, private router: Router, private activeRouter: ActivatedRoute, private studentService: StudentService) {
     this.createForm();
   }
 
@@ -65,8 +66,8 @@ export class UserFormComponent implements OnInit {
   public createUser(): void{
     if(this.form.valid){
       this.invalid = false;
-      this.userService.createUser(this.form.value).subscribe();
       if(this.form.controls.roleId.value == 2){
+        this.userService.createUser(this.form.value).subscribe();
         this.router.navigate(['/referents']).then(()=>{
           window.location.reload();
         })
@@ -77,6 +78,7 @@ export class UserFormComponent implements OnInit {
         })
       }
       if(this.form.controls.roleId.value == 4){
+        this.studentService.createStudent(this.form.value).subscribe();
         this.router.navigate(['/students']).then(()=>{
           window.location.reload();
         })

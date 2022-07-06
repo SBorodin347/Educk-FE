@@ -4,12 +4,11 @@ $color-primary: #2A81FA;
 $color-sidebar: #1B1D1F;
 $color-header: #F4F4F5;
 $color-header-search-input: #333334;
-$color-bg-secondary: #F4F4F5;  // F4F4F5
+$color-bg-secondary: #F4F4F5;
 $color-hr: #F0F0F0;
 $color-table-border: #EEEEEE;
 $color-table-border-line: #F2F2F2;
 $color-hr-strong: #E9E9E9;
-//colors text
 //$color-text: #23252E;
 $color-text: #141618; // 1B1D1F
 $color-text-link-sidebar: #757D85;
@@ -18,7 +17,9 @@ $color-bg-link-sidebar-active: #272B31;
 $color-bg-link-sidebar-hover: #212529;
 
 //paddings
-$padding-side: 40px;
+$padding-side: 38px;
+$padding-table-th: 11px 16px;
+$padding-table-td: 12px 16px;
 
 //wraps
 $main-wrap: 28px $padding-side;
@@ -27,7 +28,7 @@ $main-wrap: 28px $padding-side;
 $width-sidebar: 256px;
 
 //heights
-$height-header: 72px;
+$height-header: 68px;
 
 //fonts
 $font-line-height-basic: 18px;

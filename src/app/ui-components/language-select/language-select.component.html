@@ -1,0 +1,33 @@
+<div style="position: relative;" #select_dropdown>
+  <!-- SELECT BUTTON -->
+  <button (click)="dropdown()"
+          [ngClass]="{'select-primary-active': selectVisible,
+                      'option-default-placeholder' : field.value == undefined,
+                      'select-primary-invalid' : isCompleted}" class="select-primary">
+
+      <span *ngIf="field.value == undefined; else fieldValue">{{defaultPlaceholder}}</span>
+      <ng-template #fieldValue>
+      <span class="flex-center">
+        <i [ngClass]="getOptionIcon(field.value)"></i>
+          {{field.value | enumCourseTransform: transformType | textTransform}}
+        </span>
+      </ng-template>
+    <svg [ngClass]="{'select-primary-arrow-rotate': selectVisible}" class="select-primary-arrow">
+      <use href="#selection-arrow"></use>
+    </svg>
+  </button>
+
+  <!-- OPTION'S DROPDOWN -->
+  <ul *ngIf="selectVisible" [ngClass]="{'select-primary-dropdown-scroll ': options.length > 5}" class="select-primary-dropdown select-small">
+    <!-- OPTIONS -->
+    <li (click)="onSelectDropdownValue(opt)" *ngFor="let opt of options"
+        [ngClass]="{'select-primary-option-active': opt == field.value}" class="select-primary-option">
+      <span class="flex-center">
+      <i [ngClass]="getOptionIcon(opt)"></i>
+        {{opt | enumCourseTransform: transformType | textTransform}}
+      </span>
+      <!-- CHECKED ICON -->
+      <i *ngIf="opt == field.value" class="select-primary-checked-icon"></i>
+    </li>
+  </ul>
+</div>

@@ -4,77 +4,182 @@
 <div class="main-wrap">
 
 
-  <div class="banner">
+<!--  <div class="banner">-->
 
-<div style="display: flex">
-  <div class="duck-icon"> </div>
-  <div class="charakter"></div>
-</div>
-    <div style="margin-bottom: 32px" class="flex-column">
-      <div class="headline"> Hi, {{getFirstName()}}! </div>
-      <div  class="headline2">Welcome to educk</div>
-    </div>
+<!--<div style="display: flex">-->
+<!--  <div class="duck-icon"> </div>-->
+<!--  <div class="charakter"></div>-->
+<!--</div>-->
+<!--    <div style="margin-bottom: 32px" class="flex-column">-->
+<!--      <div class="headline"> Hi, {{getFirstName()}}! </div>-->
+<!--      <div  class="headline2">Welcome to educk</div>-->
+<!--    </div>-->
 
-  </div>
-  <div style="margin-bottom: 16px" class="h1">Home</div>
+<!--  </div>-->
+<!--  <div style="margin-bottom: 16px" class="h1">Home</div>-->
 
-    <div *ngxPermissionsOnly="['ROLE_ADMIN','ROLE_REFERENT']" class="grid">
-      <div [routerLink]="'/courses'"  class="grow">
-        <div class="item-overview">
-          <div style="background: linear-gradient(219.02deg, #FFB405 -56.9%, #FFAA05 137.57%);
-box-shadow: inset 0px 2px 12px 1px rgba(255, 255, 255, 0.15);" class="icon-wrap">
-            <svg class="svg-icon color-purple">
-              <use href="#file"></use>
-            </svg>
-          </div>
-          <div class="column-grid">
-            <span class="h3">New course</span>
-            <span class="description">You can create it now</span>
-          </div>
-        </div>
-      </div>
-      <div   [routerLink]="'/user'" class="grow">
-        <div class="item-overview">
-          <div style="background: linear-gradient(219.02deg, #B44DFE -56.9%, #8C54B5 137.57%);
-box-shadow: inset 0px 2px 12px 1px rgba(255, 255, 255, 0.15);" class="icon-wrap">
-            <svg class="svg-icon">
-              <use xlink:href="#use"></use>
-            </svg>
-          </div>
-          <div class="column-grid">
-            <span class="h3">New user</span>
-            <span class="description">You can create it now</span>
-          </div>
-        </div>
-      </div>
-      <div class="grow">
-        <div class="item-overview ">
-          <div style="background-color: #F4F4F5;" class="icon-wrap">
-            <svg class="svg-icon color-green">
-              <use href="#stack"></use>
-            </svg>
-          </div>
-          <div class="column-grid">
-            <span class="h3">Departments</span>
-            <span class="description">Coming soon...</span>
-          </div>
-        </div>
-      </div>
-      <div class="grow">
-        <div class="item-overview item-disabled">
-          <div style="background-color: #F4F4F5" class="icon-wrap">
-            <svg id="x" class="svg-icon color-orange">
-              <use  href="#faculty"></use>
-            </svg>
-          </div>
-          <div class="column-grid">
-            <span class="h3">Faculties</span>
-            <span class="description">Coming soon...</span>
-          </div>
-        </div>
-      </div>
+<!--    <div *ngxPermissionsOnly="['ROLE_ADMIN','ROLE_REFERENT']" class="grid">-->
+<!--      <div [routerLink]="'/courses'"  class="grow">-->
+<!--        <div class="item-overview">-->
+<!--          <div style="background: linear-gradient(219.02deg, #FFB405 -56.9%, #FFAA05 137.57%);-->
+<!--box-shadow: inset 0px 2px 12px 1px rgba(255, 255, 255, 0.15);" class="icon-wrap">-->
+<!--            <svg class="svg-icon color-purple">-->
+<!--              <use href="#file"></use>-->
+<!--            </svg>-->
+<!--          </div>-->
+<!--          <div class="column-grid">-->
+<!--            <span class="h3">New course</span>-->
+<!--            <span class="description">You can create it now</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div   [routerLink]="'/user'" class="grow">-->
+<!--        <div class="item-overview">-->
+<!--          <div style="background: linear-gradient(219.02deg, #B44DFE -56.9%, #8C54B5 137.57%);-->
+<!--box-shadow: inset 0px 2px 12px 1px rgba(255, 255, 255, 0.15);" class="icon-wrap">-->
+<!--            <svg class="svg-icon">-->
+<!--              <use xlink:href="#use"></use>-->
+<!--            </svg>-->
+<!--          </div>-->
+<!--          <div class="column-grid">-->
+<!--            <span class="h3">New user</span>-->
+<!--            <span class="description">You can create it now</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="grow">-->
+<!--        <div class="item-overview ">-->
+<!--          <div style="background-color: #F4F4F5;" class="icon-wrap">-->
+<!--            <svg class="svg-icon color-green">-->
+<!--              <use href="#stack"></use>-->
+<!--            </svg>-->
+<!--          </div>-->
+<!--          <div class="column-grid">-->
+<!--            <span class="h3">Departments</span>-->
+<!--            <span class="description">Coming soon...</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="grow">-->
+<!--        <div class="item-overview item-disabled">-->
+<!--          <div style="background-color: #F4F4F5" class="icon-wrap">-->
+<!--            <svg id="x" class="svg-icon color-orange">-->
+<!--              <use  href="#faculty"></use>-->
+<!--            </svg>-->
+<!--          </div>-->
+<!--          <div class="column-grid">-->
+<!--            <span class="h3">Faculties</span>-->
+<!--            <span class="description">Coming soon...</span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
 
-    </div>
+<!--    </div>-->
+
+<!--  <div class="grid">-->
+<!--    <div  class="grow">-->
+<!--      <div class="item-overview">-->
+<!--        <div style="background: #2779EB" class="icon-wrap">-->
+<!--          <svg class="svg-icon color-purple">-->
+<!--            <use href="#file"></use>-->
+<!--          </svg>-->
+<!--        </div>-->
+<!--        <div class="column-grid">-->
+<!--          <span class="h3">Number of admins</span>-->
+<!--          <span class="description">{{numberOfAdmins}}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div   class="grow">-->
+<!--      <div class="item-overview">-->
+<!--        <div style="background: #2779EB" class="icon-wrap">-->
+<!--          <svg class="svg-icon color-purple">-->
+<!--            <use href="#file"></use>-->
+<!--          </svg>-->
+<!--        </div>-->
+<!--        <div class="column-grid">-->
+<!--          <span class="h3">Number of referents</span>-->
+<!--          <span class="description">{{numberOfRefs}}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="grow">-->
+<!--      <div class="item-overview">-->
+<!--        <div style="background: #2779EB" class="icon-wrap">-->
+<!--          <svg class="svg-icon color-purple">-->
+<!--            <use href="#file"></use>-->
+<!--          </svg>-->
+<!--        </div>-->
+<!--        <div class="column-grid">-->
+<!--          <span class="h3">Number of teachers</span>-->
+<!--          <span class="description">{{numberOfTeachers}}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="grow">-->
+<!--      <div class="item-overview">-->
+<!--        <div style="background: #2779EB" class="icon-wrap">-->
+<!--          <svg class="svg-icon color-purple">-->
+<!--            <use href="#file"></use>-->
+<!--          </svg>-->
+<!--        </div>-->
+<!--        <div class="column-grid">-->
+<!--          <span class="h3">Number of students</span>-->
+<!--          <span class="description">{{numberOfStudents}}</span>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--  </div>-->
+
+<!--  <div  style="margin-bottom: 16px; margin-top: 24px" class="h2">Pocet kurzov: {{numberOfCourses}} </div>-->
+
+<!--  <img [src]='image'>-->
+
+<!--  <div class="container" style="margin-top: 20px;">-->
+<!--    <div class="panel panel-default">-->
+<!--      <div class="panel-heading">-->
+<!--        <h4>Upload and Download Files</h4>-->
+<!--      </div><br>-->
+<!--      <div class="panel-body">-->
+<!--        <strong>Select files from your computer</strong>-->
+<!--        <div *ngIf="fileStatus.status==='progress'">-->
+<!--          <div class="progress">-->
+<!--            <div [style.width.%]="fileStatus.percent" class="progress-bar progress-bar-animated bg-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">-->
+<!--              {{ fileStatus.requestType }} {{ fileStatus.percent }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div> <hr>-->
+
+<!--        <form enctype="multipart/form-data">-->
+<!--          <fieldset>-->
+<!--            <div class="form-group">-->
+<!--              <div>-->
+<!--                <input type="file"(change)="onUploadFiles($event.target.files)" name="files" multiple class="form-control" />-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </fieldset>-->
+<!--        </form>-->
+
+<!--        <br>-->
+
+<!--        <div *ngIf="filenames?.length > 0" class="js-upload-finished">-->
+<!--          <h3>Processed files</h3>-->
+<!--          <div *ngFor="let filename of filenames" class="list-group">-->
+<!--            <a (click)="onDownloadFile(filename)" class="list-group-item list-group-item-success" style="cursor: pointer;">-->
+<!--              {{ filename }}-->
+<!--              <a class="alert-success float-right">Download</a>-->
+<!--            </a><br>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+
+
+
 </div>
 </main>
 

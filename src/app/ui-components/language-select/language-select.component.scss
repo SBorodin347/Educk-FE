@@ -1,0 +1,51 @@
+@mixin select-primary-icon{
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.icon-eng{
+  @include select-primary-icon;
+  content: url("~src/img/icon-eng.svg");
+}
+
+.icon-sk{
+  @include select-primary-icon;
+  content: url("~src/img/icon-sk.svg");
+}
+
+.icon-ru{
+  @include select-primary-icon;
+  content: url("~src/img/icon-ru.svg");
+}
+
+.icon-hu{
+  @include select-primary-icon;
+  content: url("~src/img/icon-hu.svg");
+}
+
+.icon-cz{
+  @include select-primary-icon;
+  content: url("~src/img/icon-cz.svg");
+}
+
+.icon-pl{
+  @include select-primary-icon;
+  content: url("~src/img/icon-pl.svg");
+}
+
+.icon-type-a{
+  @include select-primary-icon;
+  content: url("~src/img/icon-type-a.svg");
+}
+
+.icon-type-b{
+  @include select-primary-icon;
+  content: url("~src/img/icon-type-b.svg");
+}
+
+.icon-type-c{
+  @include select-primary-icon;
+  content: url("~src/img/icon-type-c.svg");
+}
+

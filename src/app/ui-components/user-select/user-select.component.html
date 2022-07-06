@@ -1,0 +1,38 @@
+<div style="position: relative; width: 100%" #select_dropdown>
+  <!-- SELECT BUTTON -->
+  <button (click)="dropdown()"
+          [ngClass]="{'select-primary-active': selectVisible,
+                      'option-default-placeholder' : field.value == undefined,
+                      'select-primary-invalid' : isCompleted || invalid}" class="select-primary">{{getPlaceholder()}}
+    <svg [ngClass]="{'select-primary-arrow-rotate': selectVisible}" class="select-primary-arrow">
+      <use href="#selection-arrow"></use>
+    </svg>
+  </button>
+
+  <!-- OPTION'S DROPDOWN -->
+  <ul *ngIf="selectVisible" [ngClass]="{'select-primary-dropdown-scroll' : options.length > 5}"  class="select-primary-dropdown">
+    <!-- SEARCH INPUT -->
+    <span *ngIf="search" style="margin-bottom: 6px" class="filter">
+       <svg class="icon-search">
+          <use href="#search"></use>
+       </svg>
+       <input #search_input
+              [(ngModel)]="searchString"
+              [ngModelOptions]="{standalone: true}"
+              [placeholder]="searchPlaceholder"
+              class="input-sea" />
+    </span>
+
+    <!-- OPTIONS -->
+    <li (click)="onSelectDropdownValue(s.id)" *ngFor="let s of options | userFilter: searchString; i as index; trackBy: trackByFn"
+        [ngClass]="{'select-primary-option-active': s.id == field.value}" class="select-primary-option">{{s.firstName}} {{s.lastName}}
+      <!-- CHECKED ICON -->
+      <i *ngIf="s.id == field.value" class="select-primary-checked-icon"></i>
+    </li>
+
+    <ng-container *ngIf="(options | userFilter:searchString).length == 0">
+       <span style="padding: 8px 12px;" class="h4">No user found</span>
+    </ng-container>
+
+  </ul>
+</div>

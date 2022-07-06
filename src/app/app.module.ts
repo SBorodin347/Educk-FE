@@ -30,44 +30,65 @@ import { UserListComponent } from './user-list/user-list.component';
 import { ReferentPageComponent } from './pages/referent-page/referent-page.component';
 import { UserNewEditPageComponent } from './pages/user-new-edit-page/user-new-edit-page.component';
 import { UserFormComponent } from './forms/user-form/user-form.component';
-import { ProfilePageComponent} from "./pages/profile-page/profile-page.component";
 import { SubscriptionsListComponent } from './tables/subscriptions-list/subscriptions-list.component';
 import { SubscribedCourseInfoComponent } from './sections/subscribed-course-info/subscribed-course-info.component';
-import {UserFilterByNamePipe} from "./shared/user-filter.pipe";
 import {ClipboardModule} from "ngx-clipboard";
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
-
+import { ExamsPageComponent } from './pages/exams-page/exams-page.component';
+import { CourseOverviewPageComponent } from './pages/course-overview-page/course-overview-page.component';
+import { CourseTypeFilterPipe } from './shared/course-type-filter.pipe';
+import { CourseTermFilterPipe } from './shared/course-term-filter.pipe';
+import { StudentCourseGridComponent } from './tables/student-course-grid/student-course-grid.component';
+import { UserFilterPipe } from './shared/student-filter.pipe';
+import { UserSelectComponent } from './ui-components/user-select/user-select.component';
+import { LanguageSelectComponent } from "./ui-components/language-select/language-select.component";
+import { CourseInviteModalComponent } from './modal-windows/course-invite-modal/course-invite-modal.component';
+import { CourseAssessmentComponent } from './modal-windows/course-assessment/course-assessment.component';
+import {TextTransformPipe} from "./shared/text-transform.pipe";
+import {EnumCourseTransformPipe} from "./shared/assessment-transform.pipe";
+import { InstitutionPageComponent } from './pages/institution-page/institution-page.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MenuComponent,
-    CoursePageComponent,
-    CourseFormComponent,
-    SubjectListComponent,
-    TeacherPageComponent,
-    StudentPageComponent,
-    HeaderComponent,
-    SidebarComponent,
-    LoginFormComponent,
-    LoginPageComponent,
-    OrganizationPageComponent,
-    CourseFilterByNamePipe,
-    ProfilePageComponent,
-    CourseDetailsComponent,
-    SecurityPageComponent,
-    SortModalComponent,
-    SortModalComponent,
-    CourseNewEditPageComponent,
-    UserListComponent,
-    ReferentPageComponent,
-    UserNewEditPageComponent,
-    UserFormComponent,
-    SubscriptionsListComponent,
-    SubscribedCourseInfoComponent,
-    UserFilterByNamePipe,
-    SettingsPageComponent
-  ],
+    declarations: [
+        AppComponent,
+        MenuComponent,
+        CoursePageComponent,
+        CourseFormComponent,
+        SubjectListComponent,
+        TeacherPageComponent,
+        StudentPageComponent,
+        HeaderComponent,
+        SidebarComponent,
+        LoginFormComponent,
+        LoginPageComponent,
+        OrganizationPageComponent,
+        CourseFilterByNamePipe,
+        CourseDetailsComponent,
+        SecurityPageComponent,
+        SortModalComponent,
+        SortModalComponent,
+        CourseNewEditPageComponent,
+        UserListComponent,
+        ReferentPageComponent,
+        UserNewEditPageComponent,
+        UserFormComponent,
+        SubscriptionsListComponent,
+        SubscribedCourseInfoComponent,
+        SettingsPageComponent,
+        ExamsPageComponent,
+        CourseOverviewPageComponent,
+        CourseTypeFilterPipe,
+        CourseTermFilterPipe,
+        StudentCourseGridComponent,
+        UserFilterPipe,
+        UserSelectComponent,
+        LanguageSelectComponent,
+        CourseInviteModalComponent,
+        CourseAssessmentComponent,
+        TextTransformPipe,
+        EnumCourseTransformPipe,
+        InstitutionPageComponent,
+    ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -79,7 +100,7 @@ import { SettingsPageComponent } from './pages/settings-page/settings-page.compo
     NgbModule,
     NgxPermissionsModule.forRoot(),
     NgxPermissionsRestrictStubModule,
-    ClipboardModule
+    ClipboardModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

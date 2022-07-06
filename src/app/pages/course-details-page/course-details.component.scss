@@ -2,6 +2,8 @@
 @import "src/styles/mixins";
 
 
+
+
 .tooltip {
   position: relative;
 }
@@ -93,8 +95,18 @@
 
 .vl{
   margin: 0 12px;
-  height: 20px;
+  height: 18px;
   border-left: 1px solid $color-hr-strong;
+}
+
+.icon {
+  margin: auto;
+  position: absolute;
+  top: 0;  bottom: 2px;
+  left: 12px;
+  fill: $color-text;
+  width: 18px;
+  height: 18px;
 }
 
 .course-code{
@@ -114,3 +126,8 @@
   height: 16px;
 }
 
+.checkmark-icon{
+  content: url("~src/img/checkmark.svg");
+  width: 16px;
+  height: 16px;
+}

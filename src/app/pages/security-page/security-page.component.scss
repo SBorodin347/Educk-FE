@@ -1,9 +1,5 @@
 @import "src/styles/variables";
 
-.right-section {
-
-}
-
 .info-message{
   display: flex;
   align-items: center;
@@ -14,20 +10,6 @@
   margin-bottom: 24px;
 }
 
-.error-message{
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  //color: #F53333;
-  //background-color: #FFF5F5;
-  padding: 16px 16px;
-  border-radius: $border-radius ;
-  margin-bottom: 24px;
-  //box-shadow: 0 0 0 1px #F6DCDB inset;
-  transition: 0.3s ease-in;
-  background-color: #FFE7E4;
-  color: $color-text;
-}
 
 .success-message{
   display: flex;
@@ -53,14 +35,14 @@
 
 
 .info-icon{
-    content: url("../../../img/info.svg");
+  content: url("~src/img/info.svg");
   width: 16px;
   height: 16px;
   margin-right: 8px;
 }
 
 .password-icon{
-  content: url("../../../img/password.svg");
+  content: url("~src/img/password.svg");
   width: 20px;
   height: 20px;
   margin-right: 8px;
@@ -69,12 +51,7 @@
 
 
 
-.error-icon{
-  content: url("../../../img/error.svg");
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-}
+
 
 .success-icon{
   content: url("../../../img/success.svg");

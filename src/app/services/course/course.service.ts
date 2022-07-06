@@ -28,6 +28,10 @@ export class CourseService {
     return this.http.get<SubscriptionModelList>(`${this.apiUrl}/subscribe/${subjectId}/${studentId}`);
   }
 
+  getStudentCourses(studentId: number): Observable<SubscriptionModelList[]>{
+    return this.http.get<SubscriptionModelList[]>(`${this.apiUrl}/subscribe/${studentId}`);
+  }
+
   createSubject(subject: Course): Observable<number>{
     return this.http.post<number>(`${this.apiUrl}`, subject);
   }
@@ -44,12 +48,20 @@ export class CourseService {
     return this.http.delete<void>(`${this.apiUrl}/unsubscribe`, {body: model});
   }
 
-  lockSubjectById(subjectId: number): Observable<void>{
-    return this.http.put<void>(`${this.apiUrl}/lock/${subjectId}`, undefined);
+  addToCourse(subjectId: number, studentId: number): Observable<void>{
+    return this.http.post<void>(`${this.apiUrl}/subscribe/${subjectId}/${studentId}`, null)
+  }
+
+  deleteFromCourse(subjectId: number, studentId: number): Observable<void>{
+    return this.http.delete<void>(`${this.apiUrl}/subscribe/${subjectId}/${studentId}`)
   }
 
   deleteSubject(subjectId: number): Observable<void>{
     return this.http.delete<void>(`${this.apiUrl}/${subjectId}`);
+  }
+
+  updateAssessment(model: SubscriptionModelList): Observable<void>{
+    return this.http.put<void>(`${this.apiUrl}/subscribe/assessment`, model);
   }
 
 }

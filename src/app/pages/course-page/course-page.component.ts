@@ -1,12 +1,15 @@
-import {Component, ElementRef, EventEmitter, Injectable, Output, ViewChild} from '@angular/core';
-import {Course, COURSE_STATUS, CoursesList} from "../../models/course.model";
+import {
+  Component,
+  OnDestroy,
+  Output,
+  ViewChild
+} from '@angular/core';
+import {Course, CoursesList} from "../../models/course.model";
 import {CourseService} from "../../services/course/course.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
-import {UserService} from "../../services/user/user.service";
 import {ROLE, UserList} from "../../models/user.model";
 import {SubjectListComponent} from "../../tables/course-list/subject-list.component";
-import {toJSDate} from "@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar";
 
 enum TAB {TAB1, TAB2,TAB3}
 
@@ -16,7 +19,7 @@ enum TAB {TAB1, TAB2,TAB3}
   styleUrls: ['./course-page.component.scss']
 })
 
-export class CoursePageComponent {
+export class CoursePageComponent implements OnDestroy{
 
   allCourses: CoursesList[] = []
   teachers: UserList[] = []
@@ -31,30 +34,14 @@ export class CoursePageComponent {
   successRemove: boolean = false;
   private subscription: Subscription = new Subscription()
 
-  constructor(private router: Router, private subjectService: CourseService, private userService: UserService, public activatedRoute: ActivatedRoute) {
+  constructor(private router: Router, private subjectService: CourseService,
+              public activatedRoute: ActivatedRoute) {
 
   }
 
   ngOnInit(): void{
     this.refreshSubjects();
-    this.refreshTeachers();
     this.activatedRoute.queryParams.subscribe(params => {
-      if(params.creationState != undefined){
-        this.successAdd = true;
-        window.history.replaceState({}, '',`/courses`);
-        setTimeout(()=>{
-          this.refreshSubjects();
-          this.successAdd = false;
-        }, 2000)
-      }
-      if(params.editionState != undefined){
-        this.successEdit = true;
-        window.history.replaceState({}, '',`/courses`);
-        setTimeout(()=>{
-          this.refreshSubjects();
-          this.successEdit = false;
-        }, 2000)
-      }
       if(params.removingState != undefined){
         this.successRemove = true;
         window.history.replaceState({}, '',`/courses`);
@@ -84,7 +71,6 @@ export class CoursePageComponent {
     this.toolbarVisible = false;
   }
 
-
   deleteCourse(){
     if (confirm('Do you really want to delete this?')){
       this.childComponentList.deleteCourses();
@@ -101,15 +87,9 @@ export class CoursePageComponent {
 
   public currentPageUrl: string;
 
-  stringFormatter(str: string): string{
-    return str.slice(0).charAt(1).toUpperCase() + str.slice(2).toLowerCase();
-  }
-
   switchTab(t: TAB){
     this.tab = t;
   }
-
-  interval
 
   refreshSubjects(): void{
     this.subscription.add(this.subjectService.getSubjects().subscribe(data => {
@@ -117,11 +97,6 @@ export class CoursePageComponent {
     }));
   }
 
-  refreshTeachers(): void{
-    this.subscription.add(this.userService.getUsersByRoleName(ROLE.TEACHER).subscribe(data => {
-      this.teachers = data;
-    }));
-  }
 
   add(subject: Course): void{
     this.subscription.add(this.subjectService.createSubject(subject).subscribe(data => {
@@ -137,11 +112,7 @@ export class CoursePageComponent {
     }
   }
 
-  lockCourseById(subjectId: number): void{
-    this.subscription.add(this.subjectService.lockSubjectById(subjectId).subscribe(data => {
-      this.refreshSubjects();
-    }));
-  }
+
 
   deleteCourseFromList(subjectId: number): void {
       this.subscription.add(this.subjectService.deleteSubject(subjectId).subscribe(data => {

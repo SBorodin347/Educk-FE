@@ -2,8 +2,10 @@ import {Pipe, PipeTransform} from "@angular/core";
 import {Course} from "../models/course.model";
 
 @Pipe({
-  name: 'courseFilterByName'
+  name: 'courseFilterByName',
+  pure: true
 })
+
 export class CourseFilterByNamePipe implements PipeTransform{
   transform(subjects: Course[], search: string): Course[] {
     if (!search.trim()){

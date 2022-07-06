@@ -39,6 +39,7 @@ export class AuthService {
          this.setUserRoles(),
           this.setUserId();
         this.setUserFirstName();
+        localStorage.setItem('current', JSON.stringify(this.user));
       }
     ));
   }

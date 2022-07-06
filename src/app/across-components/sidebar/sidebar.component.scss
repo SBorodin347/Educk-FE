@@ -49,9 +49,14 @@
   color: $color-text-link-sidebar;
   stroke: $color-text-link-sidebar;
   transition: 0.05s;
+  margin-left: 28px;
   &:hover{
     color: #fff;
   }
+}
+
+.nav-link-secondary span:hover{
+  color: #fff;
 }
 
 .nav-link-active {
@@ -64,8 +69,12 @@
   }
 }
 
+.nav-link-active-sub{
+  margin-left: 28px;
+}
+
 .custom-link-icon{
-  content: url("../../../img/card.png");
+  content: url("~src/img/card.png");
   width: 20px;
   height: 20px;
 }
@@ -77,9 +86,7 @@
   margin-bottom:8px;
 }
 
-.nav-link-active-sub{
-  margin-left: 28px;
-}
+
 
 .navi-drag{
   position: absolute;
@@ -91,6 +98,7 @@
   margin: 0;
   vertical-align: baseline;
 }
+
 
 .sidebar-drop:before{
     content: "";
@@ -117,7 +125,9 @@
 .navi-icon{
   width: 12px;
   height: 12px;
+  position: absolute;
   margin-left: 7px;
+  left: 10px;
   stroke: #2B2F35;
 }
 

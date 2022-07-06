@@ -1,13 +1,14 @@
 <app-header></app-header>
 <app-sidebar [activeLink]="'courses'"></app-sidebar>
-<div *ngIf="popup==true" class="backdrop">
+
+<div *ngIf="popup==true" class="backdrop" >
   <div class="modal">
     <app-course-form
-      (closePopup)="closePopup()" [teachers]="teachers" [courses]="allCourses"
-      (addCourse)="add($event)" (editCourse)="edit($event)">
+      (closePopup)="closePopup()" (addCourse)="add($event)" (editCourse)="edit($event)">
     </app-course-form>
   </div>
 </div>
+
 <main>
 <div class="main-wrap">
  <div class="breadcrumbs">
@@ -15,31 +16,32 @@
    <i class="crumb-arrow"></i>
    <a routerLink="/courses" class="crumb-link crumb-link-active">Courses</a>
  </div>
-<div class="flex-center-spaceBetween" style=" margin-bottom: 24px;">  <div class="h1">Courses</div> <div style="display:flex;"> <button style="margin-right: 8px;" class="btn-icon">
-  <svg  class="btn-icon-svg">
-    <use href="#cloud"></use>
-  </svg>
-</button> <button class="btn-icon">
-  <svg class="btn-icon-svg">
-    <use href="#download"></use>
-  </svg>
-</button>  </div></div>
+<div class="flex-center-spaceBetween" style=" margin-bottom: 24px;">
+  <div class="h1">Courses</div>
+
+  <div *ngxPermissionsOnly="[ROLE.ADMIN, ROLE.REFERENT]" class="flex-center gap-8">
+    <button class="btn-icon">
+      <svg class="btn-icon-svg">
+        <use href="#cloud"></use>
+      </svg></button>
+    <button class="btn-icon">
+      <svg class="btn-icon-svg">
+        <use href="#download"></use>
+      </svg></button>
+  </div>
+
+</div>
   <div class="flex-center-spaceBetween" style="margin-bottom: 20px; ">
     <div class="flex-center">
-
       <button style="margin-right: 12px" class="btn-secondary">Filters</button>
       <div class="filter">
         <svg class="icon">
           <use href="#search"></use>
         </svg>
-        <input class="input-sea"  type="text" placeholder="Search subject by title" [(ngModel)]="searchString">
+        <input style="width: 260px" class="input-sea"  type="text" placeholder="Search subject by title" [(ngModel)]="searchString">
       </div>
     </div>
-<!--   <div class="flex-center">-->
-<!--     <button (click)="switchTab(1)" [ngClass]="{'button-tab-active': tab == 1}" class="button-tab">All courses</button>-->
-<!--     <button (click)="switchTab(2)" [ngClass]="{'button-tab-active': tab == 2}" class="button-tab">Approved</button>-->
-<!--     <button (click)="switchTab(3)" [ngClass]="{'button-tab-active': tab == 3}" class="button-tab">Refused<span *ngIf="refusedCourses?.length != 0" class="warning-circle">{{refusedCourses.length}}</span></button>-->
-<!--   </div>-->
+
     <div class="flex-center-spaceBetween">
       <div *ngIf="toolbarVisible" class="gap-16 showing flex-center-spaceBetween">
         <button (click)="exportCourse()" class="btn-secondary">Export</button>
@@ -59,11 +61,7 @@
       </div>
     </div>
   </div>
-      <div class="container">
-        <app-course-list (closeSettings)="hideToolbar()" (openSettings)="showToolbar()" *ngIf="tab == 1" [courses]="allCourses" [searchString]="searchString" (lockCourse)="lockCourseById($event)" (removeCourse)="deleteCourseFromList($event)"></app-course-list>
-<!--        <app-course-list *ngIf="approvedCourses?.length > 0 && tab == 2" [courses]="approvedCourses" [searchString]="searchString" (editCourse)="editCourseFromList($event)" (removeCourse)="deleteCourseFromList($event)"></app-course-list>-->
-<!--        <app-course-list *ngIf="refusedCourses?.length > 0 && tab == 3" [courses]="refusedCourses" [searchString]="searchString" (editCourse)="editCourseFromList($event)" (removeCourse)="deleteCourseFromList($event)"></app-course-list>-->
-      </div>
+        <app-course-list (closeSettings)="hideToolbar()" (openSettings)="showToolbar()" *ngIf="tab == 1" [courses]="allCourses" [searchString]="searchString" (removeCourse)="deleteCourseFromList($event)"></app-course-list>
 </div>
 </main>
 
@@ -75,11 +73,7 @@
 </div>
 
 
-<div *ngIf="successEdit" class="notification-modal" ><div class="icon-success-block">
-  <i class="checkmark-icon"></i>
-</div>
-  <span style="margin-right: 16px" class="h3">The course was successfully changed</span>
-</div>
+
 <div *ngIf="successRemove" class="notification-modal" ><div class="icon-delete-block"><i class="trash-icon"></i></div>
   <span style="margin-right: 16px" class="h3"> The course was deleted</span>
 </div>

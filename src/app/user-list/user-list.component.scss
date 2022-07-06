@@ -1,66 +1,6 @@
 @import "src/styles/variables";
 @import "src/styles/mixins";
 
-.checkbox-custom > input {
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-}
-
-.checkbox-custom > span {
-  display: flex;
-  align-items: center;
-  user-select: none;
-  cursor: pointer;
-}
-
-.checkbox-custom > span::before {
-  content: "";
-  display: inline-block;
-  height: 18px;
-  width: 18px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  border: 1px solid #E3E3E3;
-  background-color: $color-bg;
-  border-radius: 4px;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 60% 60%;
-}
-
-.checkbox-custom > input:not(:disabled):not(:checked) + span:hover::before {
-  border-color: #b3d7ff;
-  transition: 0.3s;
-}
-
-.checkbox-custom > input:not(:disabled):active + span::before {
-  background-color: #b3d7ff;
-  border-color: #b3d7ff;
-  transition: 0.3s;
-}
-
-.checkbox-custom > input:focus + span::before {
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  transition: 0.3s;
-}
-
-.checkbox-custom > input:focus:not(:checked) + span::before {
-  border-color: #80bdff;
-  transition: 0.3s;
-}
-
-.checkbox-custom > input:checked + span::before {
-  transition: 0.3s;
-  border-color: $color-primary;
-  background-color: $color-primary;
-  background-image: url("../../img/check.svg");
-}
-
-.checkbox-custom > input:disabled + span::before {
-  background-color: #e9ecef;
-}
-
 .th-column{
   color: #5E647A;
   font-weight: 400;

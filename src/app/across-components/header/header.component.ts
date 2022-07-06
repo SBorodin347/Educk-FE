@@ -2,6 +2,7 @@ import {Component, ElementRef, HostListener, Injectable, OnInit} from '@angular/
 import {AuthService} from "../../services/authentication/auth.service";
 import {User} from "../../models/user.model";
 import {UserService} from "../../services/user/user.service";
+import {FileService} from "../../services/file.service";
 
 @Component({
   selector: 'app-header',
@@ -10,28 +11,31 @@ import {UserService} from "../../services/user/user.service";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private el: ElementRef, private auth: AuthService, private userService: UserService) { }
+  user: User;
+  avatarUrl;
+  menu: boolean = false;
+  reader = new FileReader();
 
-  public user: User;
+  constructor(private element: ElementRef, private auth: AuthService, private userService: UserService, private fileService: FileService) { }
 
   ngOnInit(): void {
-    this.userService.getUserByUserId(this.auth.getUserId()).subscribe(data => {
-      this.user = data;
-    })
+    // this.fileService.show("14.png").subscribe(data => {
+    //   if(data.body instanceof Blob){
+    //     this.reader.readAsDataURL(data.body);
+    //     this.reader.onload = _event => {
+    //       this.avatarUrl =  this.reader.result;
+    //     };
+    //   }
+    // })
   }
 
-  userProfilePic(): string{
-    return this.user.firstName.charAt(0) + this.user.lastName.charAt(0);
-  }
-
-  public menu: boolean = false;
   openMenu(){
     this.menu = !this.menu;
   }
 
   @HostListener('document:click', ['$event'])
   onClick(event: Event) {
-    if (!this.el.nativeElement.contains(event.target)) {
+    if (!this.element.nativeElement.contains(event.target)) {
       this.menu=false;
     }
   }
@@ -39,6 +43,5 @@ export class HeaderComponent implements OnInit {
   public logout(): void{
     this.auth.logout();
   }
-
 
 }

@@ -1,0 +1,31 @@
+<div class="parent">
+  <div *ngFor="let c of allCourses | courseTypeFilter:type | courseTermFilter:tab" class="child">
+    <div style="display: flex; padding: 16px 16px" class=" gap-16">
+      <div [ngStyle]="{'background-color': getCssColor(getFirstLetter(c.name))}"  class="item-icon">{{getFirstLetter(c.name)}} </div>
+      <div class="flex-column">
+        <span class=item-title>{{c.name}}</span>
+        <span class="h4">Compulsory courses</span>
+      </div>
+    </div>
+    <div >
+      <hr style="margin: 0; background-color: #F2F2F2" class="hr-custom">
+    </div>
+    <div class="flex-center-spaceBetween" style="padding: 12px 16px; background-color: #FCFCFC; border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px; margin-top: 1px; ">
+      <div class="flex-center gap-8">
+        <span class="h3">{{c.teacherFirstName}} {{c.teacherLastName}}</span> </div>
+      <!--   <div class="item-credit-block">
+           <svg class="item-info-icon">
+             <use href="#link"></use>
+           </svg>
+         </div>-->
+      <img src="https://cdn.dribbble.com/users/5710366/avatars/normal/52cf5e2ee6bab756aa16662f1db1d211?1599309296" class="item-avatar">
+      <!--        <div class="counter">1</div>-->
+    </div>
+  </div>
+        <div *ngIf="showAdding(type)" class="child-plus">
+          <div class="flex-center gap-8">
+            <span  class="h4">Add course</span><i class="plus-icon"></i>
+          </div>
+        </div>
+</div>

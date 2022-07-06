@@ -1,0 +1,38 @@
+<div class="backdrop">
+  <div class="modal">
+
+    <span class="h2">Invitation</span><i (click)="switchInviteModal.emit()" class="icon-close"></i>
+    <hr style="margin: 16px 0 20px 0" class="hr-custom">
+
+    <div *ngIf="errorMessage" class="error-message">
+      <i class="error-icon"></i>
+      <span>This student has already signed up for the course</span>
+    </div>
+
+    <div style="margin-bottom: 6px;" class="flex-center gap-8"> <span class="headline-16">Invite Link</span></div>
+    <div style="margin-bottom: 18px" class="h4">It is possible to subscribe to the course via the link only if open access is enabled</div>
+
+    <div class="input-btn-section gap-12">
+      <input [value]="url" class="input-primary"><button [disabled]="isCopied" (click)="clipboardLink()" class="btn-secondary">{{copyText}}</button>
+    </div>
+
+    <hr style="margin: 28px -32px" class="hr-custom">
+
+    <form [formGroup]="form">
+      <div style="font-size: 16px; margin-bottom: 12px; font-weight: 500">Students</div>
+      <div class="input-btn-section gap-12">
+        <app-user-select
+          [options]="students"
+          [field]="this.form.controls.studentId"
+          [invalid]="invalid"
+          [defaultPlaceholder]="'Select a user...'"
+          [search]="true"
+          [size]="'small'"
+          [searchPlaceholder]="'Search a user'">
+        </app-user-select>
+        <button (click)="addStudentToCourse()" class="btn-main">Add student</button>
+      </div>
+    </form>
+
+  </div>
+</div>

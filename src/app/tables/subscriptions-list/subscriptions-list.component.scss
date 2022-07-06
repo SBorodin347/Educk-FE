@@ -1,0 +1,13 @@
+@import "src/styles/mixins";
+.icon-dots{
+  width: 18px;
+  height: 18px;
+}
+
+.dots-container{
+  @include flex-center-center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background-color: #F4F4F5;
+}

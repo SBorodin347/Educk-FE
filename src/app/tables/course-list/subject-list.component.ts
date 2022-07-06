@@ -1,10 +1,8 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {COURSE_STATUS, CoursesList} from "../../models/course.model";
+import {Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {CoursesList} from "../../models/course.model";
 import {CoursePageComponent} from "../../pages/course-page/course-page.component";
 import {Router} from "@angular/router";
 import jsPDF, {CellConfig} from 'jspdf';
-import html2canvas from 'html2canvas';
-import {getLocaleDateTimeFormat} from "@angular/common";
 
 @Component({
   selector: 'app-course-list',
@@ -18,9 +16,7 @@ export class SubjectListComponent implements OnInit{
   };
 
   ngOnInit(){
-    // this.courses.map(((item, index)=> {
-    //   this.courses.push(Object.assign({},item,{select: false}))
-    // }))
+
   }
 
   sortByNameVisible: boolean = false
@@ -65,7 +61,7 @@ export class SubjectListComponent implements OnInit{
   public courseWordFormatter(): string{
     if(this.deletedList?.length==1){
       return "course";
-    }else return "courses";
+    } else return "courses";
   }
 
   private static _createHeadersForPdfTable(keys: string[]) {
@@ -140,21 +136,8 @@ export class SubjectListComponent implements OnInit{
     }
   }
 
-
-  public badge(status: COURSE_STATUS){
-    if(status == COURSE_STATUS.APPROVED){
-      return 'badge-approve'
-    }
-    if(status == COURSE_STATUS.REFUSED){
-      return 'badge-refuse'
-    }
-    if(status == COURSE_STATUS.CANCELLED){
-      return 'badge-cancel'
-    }
-  }
-
-  public hideColumn1(){
-    this.column1 = !this.column1;
+  trackByFn(index, course: CoursesList) {
+    return course.id;
   }
 
   resetSorts(): void{
@@ -229,10 +212,6 @@ export class SubjectListComponent implements OnInit{
     }
   }
 
-  openDetailsOfSubject(id: number){
-    this.router.navigate(['/courses/'+id]);
-  }
-
   showRemovingNotification(){
     this.notificationRemoving = true;
     setTimeout(()=>{
@@ -240,16 +219,12 @@ export class SubjectListComponent implements OnInit{
     }, 2000)
   }
 
-
   public uncheck(){
     for(const c of this.courses){
       c.select = false;
     }
     this.parentSelector = false;
   }
-
-
-
   onChange($event){
     const id = $event.target.value;
     const isChecked = $event.target.checked;

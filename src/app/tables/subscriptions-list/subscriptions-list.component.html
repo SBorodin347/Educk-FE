@@ -1,4 +1,4 @@
-<div *ngIf="subscriptions?.length > 0">
+<ng-container *ngIf="subscriptions?.length > 0">
 
   <table>
     <col style="width: 40px">
@@ -7,13 +7,14 @@
     <col style="width: 160px">
     <col style="width: 160px">
     <col style="width: 160px">
+    <col style="width: 40px">
 
 <!-- ...DESCRIPTION STARTS... -->
     <thead>
     <tr>
 
 <!-- COLUMN 1 -->
-      <th style="padding: 12px 12px 12px 16px">
+      <th>
         <label class="checkbox-custom">
         <input [(ngModel)]="parentSelector" [value]="-1" (change)="onChange($event)"  type="checkbox">
         <span></span>
@@ -43,6 +44,9 @@
 <!-- COLUMN 6 -->
       <th>Last modified date</th>
 
+<!-- EMPTY COLUMN 7 -->
+      <th></th>
+
 <!-- ...DESCRIPTION ENDS... -->
     </tr>
     </thead>
@@ -52,7 +56,7 @@
     <tr [ngClass]="{'selected-row': student.select==true}" *ngFor="let student of subscriptions">
 
 <!-- COLUMN 1 -->
-      <td style="padding: 12px 12px 12px 16px">
+      <td>
         <label class="checkbox-custom">
           <input [checked]="student.select" [value]="student.studentId" (change)="onChange($event)" type="checkbox">
           <span></span>
@@ -63,18 +67,27 @@
       <td>{{student.studentFirstName}} {{student.studentLastName}}</td>
 
 <!-- COLUMN 3 -->
-      <td>{{student.assessment}}</td>
+      <td>{{student.assessment | enumCourseTransform: 'assessment'}}</td>
 
 <!-- COLUMN 4 -->
-      <td>{{capitalString(student.status)}}</td>
+      <td>{{student.status | textTransform}}</td>
 
 <!-- COLUMN 5 -->
       <td>{{student.dateOfRegistration}}</td>
 
 <!-- COLUMN 6 -->
       <td>{{student.lastModifiedDate}}</td>
+
+<!-- COLUMN 7 -->
+      <td style="padding-left: 0">
+        <div class="dots-container">
+        <svg (click)="openDetails(student.subjectId, student.studentId)" class="icon-dots">
+           <use xlink:href="#dot"></use>
+        </svg>
+        </div>
+      </td>
     </tr>
     </tbody>
 <!-- ...CONTENT ENDS... -->
   </table>
-</div>
+</ng-container>

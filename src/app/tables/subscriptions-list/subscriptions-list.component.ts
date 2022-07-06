@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SubscriptionModel, SubscriptionModelList} from "../../models/subscriptionModel";
+import {STUDENT_ASSESSMENT, SubscriptionModel, SubscriptionModelList} from "../../models/subscriptionModel";
 import jsPDF, {CellConfig} from "jspdf";
 
 @Component({
@@ -9,13 +9,15 @@ import jsPDF, {CellConfig} from "jspdf";
 })
 export class SubscriptionsListComponent implements OnInit {
 
-  exportedStudents = [];
-  deletedList = [];
-  deleteModel: SubscriptionModel;
-  sortByStudentLastName: boolean = false;
-  sortByDateVisible: boolean = false;
-  sortByNameType: string = '';
-  sortByDateType: string = '';
+  exportedStudents: SubscriptionModelList[] = []
+  deletedList: SubscriptionModelList[] = []
+  deleteModel: SubscriptionModel
+  detailModel: SubscriptionModel
+  sortByStudentLastName: boolean = false
+  sortByDateVisible: boolean = false
+  sortByNameType: string = ''
+  sortByDateType: string = ''
+  parentSelector: boolean = false
 
   @Output()
   openSettings: EventEmitter<any> = new EventEmitter<any>();
@@ -26,16 +28,15 @@ export class SubscriptionsListComponent implements OnInit {
   @Output()
   removeSubscription: EventEmitter<SubscriptionModel> = new EventEmitter<SubscriptionModel>();
 
+  @Output()
+  openDetailsOfSubscription: EventEmitter<SubscriptionModel> = new EventEmitter<SubscriptionModel>();
+
   @Input()
   subscriptions: SubscriptionModelList[] = [];
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.subscriptions.map(((item, index)=> {
-      this.subscriptions.push(Object.assign({},item,{select: false}))
-    }))
-  }
+  ngOnInit(): void {}
 
   deleteFromCourse(){
     this.deletedList = this.subscriptions.filter(function(course) {
@@ -54,16 +55,14 @@ export class SubscriptionsListComponent implements OnInit {
     }
   }
 
-  parentSelector: boolean = false
 
-  public uncheck(){
-    for(const c of this.subscriptions){
-      c.select = false;
-    }
-    this.parentSelector = false;
+
+  public uncheck(): void {
+    for (const c of this.subscriptions) {c.select = false}
+    this.parentSelector = false
   }
 
-  onChange($event){
+  onChange($event): void{
     const id = $event.target.value;
     const isChecked = $event.target.checked;
     this.openSettings.emit();
@@ -94,6 +93,11 @@ export class SubscriptionsListComponent implements OnInit {
 
   resetSorts(): void{
     this.sortByNameType = this.sortByDateType = '';
+  }
+
+  openDetails(courseId:number, studentId:number){
+    let sub = new SubscriptionModel(courseId, studentId)
+    this.openDetailsOfSubscription.emit(sub);
   }
 
   public sortByStudentAsc(): void{
@@ -160,7 +164,6 @@ export class SubscriptionsListComponent implements OnInit {
     return data;
   }
 
-
   public openPDF(): void {
     const fileName = 'RegisteredStudents';
     const doc = new jsPDF();
@@ -181,6 +184,5 @@ export class SubscriptionsListComponent implements OnInit {
     ]), { autoSize: false });
     doc.save(fileName);
   }
-
 
 }

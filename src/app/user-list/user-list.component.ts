@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from "@angular/router";
 import {UserList} from "../models/user.model";
 import jsPDF, {CellConfig} from "jspdf";
 
@@ -23,7 +22,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     // this.users.map(((item, index)=> {
-    //   this.users.push(Object.assign({},item,{select: false}))
+    //   this.users.push(Object.assign({},item,{user-select: false}))
     // }))
   }
 

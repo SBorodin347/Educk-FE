@@ -1,0 +1,14 @@
+
+.icon-close{
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  content: url("~src/img/x.svg");
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.input-btn-section{
+  display: grid; grid-template-columns: 1fr auto; margin-bottom: 16px;
+}

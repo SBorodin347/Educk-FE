@@ -1,0 +1,42 @@
+<ng-container *ngIf="sub !== undefined">
+<div class="backdrop">
+  <div class="modal">
+
+    <span class="h2">{{sub.studentFirstName}} {{sub.studentLastName}}</span><i  class="icon-close"></i>
+    <hr style="margin: 20px 0" class="hr-custom">
+
+    <div style="margin-bottom: 36px" class="flex-column">
+<!--    <span style="font-size: 20px; font-weight: 500">{{sub.studentFirstName}} {{sub.studentLastName}}</span>-->
+      <div *ngIf="errorMessage" class="error-message">
+        <i class="error-icon"></i>
+        <span>You entered the wrong password</span>
+      </div>
+    <form [formGroup]="form">
+      <div class="flex-column gap-20">
+        <div>
+      <label>Assessment</label>
+      <app-language-select
+      [options]="assessments"
+      [transformType]="'assessment'"
+      [field]="this.form.controls.assessment">
+      </app-language-select>
+        </div>
+        <div *ngIf="passwordRequired">
+    <label>Password</label>
+    <input [ngClass]="{'input-primary-invalid' : form.controls.password.touched && form.controls.password.invalid || invalid}" formControlName="password"
+          placeholder="Enter your password" type="password" class="input-primary">
+        </div>
+      </div>
+    </form>
+    </div>
+    <hr style="margin: 0 -32px" class="hr-custom">
+    <div style="border-top: 1px solid #fff; width: 500px; margin: 0 -32px -32px -32px; background: #FCFCFC; border-radius: 0 0 12px 12px; padding: 24px 32px 30px 32px;">
+      <div class="right-align">
+        <button class="btn-cancel" >Cancel</button>
+        <button class="btn-main"  (click)="sendForm()">Confirm</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</ng-container>

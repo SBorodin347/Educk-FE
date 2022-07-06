@@ -8,7 +8,8 @@
             </svg>
           </div>
     </div>
-       <div (click)="openMenu()" [ngClass]="{'burger-active': menu}" class="burger">    <svg class="menu-icon">
+       <div (click)="openMenu()" [ngClass]="{'burger-active': menu}" class="burger">
+          <svg class="menu-icon">
             <use href="#menu"></use>
           </svg></div>
         <nav *ngIf="menu" class="navigation-drop">
@@ -19,28 +20,6 @@
             <span style="color: #fff; font-weight: 500" class="nav-title">Upgrade account</span>
           </a>
           <hr style="width: 100%" class="hr-custom">
-<!--          <a class="nav-link">-->
-<!--             <svg class="nav-icon">-->
-<!--               <use href="#organ"></use>-->
-<!--             </svg>-->
-<!--             <span class="nav-title">Mentions</span>-->
-<!--           </a>-->
-<!--           <a routerLink="/organization" class="nav-link">-->
-<!--             <svg  class="nav-icon">-->
-<!--               <use href="#uni"></use>-->
-<!--             </svg>-->
-<!--             <span class="nav-title">Organization</span>-->
-<!--    &lt;!&ndash;         <div class="badge-organization" >12</div>&ndash;&gt;-->
-<!--           </a>-->
-<!--          <a class="nav-link">-->
-<!--            <svg  class="nav-icon">-->
-<!--              <use href="#document"></use>-->
-<!--            </svg>-->
-<!--            <span class="nav-title">Documents</span>-->
-<!--          </a>-->
-<!--          <a class="nav-link">-->
-<!--            <span class="nav-title">Account Settings</span>-->
-<!--          </a>-->
           <a (click)="logout()" class="nav-link">
             <span class="nav-title">Log Out</span>
           </a>

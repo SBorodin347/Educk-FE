@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {PasswordUpdate, User, UserList} from "../../models/user.model";
+import {PasswordUpdate, Student, User, UserList} from "../../models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,10 @@ export class UserService{
 
   updatePassword(userId: number, password: PasswordUpdate): Observable<String>{
     return this.http.put<String>(`${this.apiUrl}/password/${userId}`, password);
+  }
+
+  verifyPassword(userId: number, password: string): Observable<boolean>{
+    return this.http.get<boolean>(`${this.apiUrl}/verify/${userId}/${password}`);
   }
 
   deleteUser(userId: number): Observable<void>{

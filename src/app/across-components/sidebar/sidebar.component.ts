@@ -4,8 +4,10 @@ import {UserService} from "../../services/user/user.service";
 import {NgxPermissionsService} from "ngx-permissions";
 import {AuthService} from "../../services/authentication/auth.service";
 import {ROLE} from "../../models/user.model";
+import {CourseService} from "../../services/course/course.service";
+import {SubscriptionModelList} from "../../models/subscriptionModel";
 
-enum NAV {COURSES, USERS, HOME, REFERENT, TEACHER, STUDENT, SECURITY, PROFILE}
+enum NAV {COURSES, USERS, HOME, REFERENT, TEACHER, STUDENT, SECURITY, PROFILE, EXAMS, COURSES_OVERVIEW}
 
 
 
@@ -16,22 +18,29 @@ enum NAV {COURSES, USERS, HOME, REFERENT, TEACHER, STUDENT, SECURITY, PROFILE}
 })
 export class SidebarComponent {
 
-
-  constructor(private router: Router, private permissionsService: NgxPermissionsService, private userService: UserService, private auth: AuthService) {
-  }
-
-  ngOnInit() {
-    this.href = this.router.url;
-  }
-
-  @Input()
-  public activeLink: string;
-
   href: string = "";
   routeTo = NAV;
   ROLE = ROLE;
   dropdown: boolean = false;
   userHover: boolean = false;
+  numberOfSubs: number;
+  // subs: SubscriptionModelList = [];
+
+  constructor(private router: Router, private courseService: CourseService, private auth: AuthService) {
+  }
+
+  ngOnInit() {
+    this.href = this.router.url;
+    if(this.dropLinkActiveForCourses()){
+      this.courseService.getStudentCourses(this.auth.getUserId()).subscribe(data => {
+        // this.numberOfSubs = data.length;
+        // this.subs = data;
+      })
+    }
+  }
+
+  @Input()
+  public activeLink: string;
 
   public openDropdown(){
     this.dropdown = !this.dropdown;
@@ -43,9 +52,14 @@ export class SidebarComponent {
     }
   }
 
+  public dropLinkActiveForCourses(): boolean {
+    if (this.activeLink == 'courses' || this.activeLink == 'overview') return true
+  }
+
   public isActive(s: string){
       return s == this.href;
   }
+
   navigation(n : NAV){
     if(n === NAV.COURSES)
       this.router.navigate(['/courses']);
@@ -63,5 +77,9 @@ export class SidebarComponent {
       this.router.navigate(['/security']);
     if(n == NAV.PROFILE)
       this.router.navigate(['/profile']);
+    if(n == NAV.EXAMS)
+      this.router.navigate(['/exams']);
+    if(n == NAV.COURSES_OVERVIEW)
+      this.router.navigate(['/courses/subscriptions']);
   }
 }

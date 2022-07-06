@@ -14,8 +14,10 @@ import {ReferentPageComponent} from "./pages/referent-page/referent-page.compone
 import {UserNewEditPageComponent} from "./pages/user-new-edit-page/user-new-edit-page.component";
 import {NgxPermissionsGuard} from "ngx-permissions";
 import {ROLE} from "./models/user.model";
-import {ProfilePageComponent} from "./pages/profile-page/profile-page.component";
 import {SettingsPageComponent} from "./pages/settings-page/settings-page.component";
+import {ExamsPageComponent} from "./pages/exams-page/exams-page.component";
+import {CourseOverviewPageComponent} from "./pages/course-overview-page/course-overview-page.component";
+import {InstitutionPageComponent} from "./pages/institution-page/institution-page.component";
 
 const routes: Routes = [
   {
@@ -36,6 +38,17 @@ const routes: Routes = [
         component: CoursePageComponent,
       },
       {
+        path: 'courses/subscriptions',
+        canActivate: [NgxPermissionsGuard],
+        data: {
+          permissions: {
+            only: [ROLE.STUDENT],
+            redirectTo: '/',
+          }
+        },
+        component: CourseOverviewPageComponent
+      },
+      {
         path: 'courses/:id',
         component: CourseDetailsComponent,
       }
@@ -53,14 +66,20 @@ const routes: Routes = [
     component: CourseNewEditPageComponent
   },
   {
+    path: 'institution',
+    canActivate: [NgxPermissionsGuard],
+    data: {
+      permissions: {
+        only: [ROLE.ADMIN, ROLE.REFERENT],
+        redirectTo: '/',
+      }
+    },
+    component: InstitutionPageComponent
+  },
+  {
     path: 'course',
     canActivate: [AuthGuard],
     component: CourseNewEditPageComponent
-  },
-  {
-    path: 'profile',
-    canActivate: [AuthGuard],
-    component: ProfilePageComponent
   },
   {
     path: 'user',
@@ -110,6 +129,11 @@ const routes: Routes = [
     path: 'organization',
     canActivate: [AuthGuard],
     component: OrganizationPageComponent
+  },
+  {
+    path: 'exams',
+    canActivate: [AuthGuard],
+    component: ExamsPageComponent
   },
   {
     path: 'security',

@@ -59,9 +59,6 @@ export class ReferentPageComponent {
     this.hideToolbar();
   }
 
-  stringFormatter(str: string): string{
-    return str.slice(0).charAt(1).toUpperCase() + str.slice(2).toLowerCase();
-  }
 
   refreshReferents(): void{
     this.userService.getUsersByRoleName(ROLE.REFERENT).subscribe(data => {

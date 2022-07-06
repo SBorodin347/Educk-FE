@@ -90,15 +90,18 @@ i.clipboard-icon{
 .form-template-grid{
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 24px;
   grid-row-gap: 28px;
+}
+
+.grid-two{
+  display: grid; grid-template-columns: 1fr 1fr; grid-column-gap: 16px;
 }
 
 .form-template-section-rows{
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   background-color: #fff;
   width: 100%;
   border-radius: 10px;
@@ -118,5 +121,9 @@ i.clipboard-icon{
 }
 
 .hr-margins{
-  margin-top: -4px; margin-bottom: 4px; background-color: #F3F3F3;
+  width: 100%;
+  margin: 0;
+   background-color: #F3F3F3;
 }
+
+

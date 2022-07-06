@@ -1,0 +1,40 @@
+<app-header></app-header>
+<app-sidebar [activeLink]="'overview'"></app-sidebar>
+<main>
+  <div class="main-wrap">
+    <div class="breadcrumbs">
+      <a class="crumb-link" routerLink="/">Home</a>
+      <i class="crumb-arrow"></i>
+      <a routerLink="/courses" class="crumb-link ">Courses</a>
+      <i class="crumb-arrow"></i>
+      <a routerLink="/courses" class="crumb-link crumb-link-active">Subscriptions</a>
+    </div>
+    <div class="flex-center-spaceBetween" style=" margin-bottom: 28px;">
+      <div class="h1">Subscriptions</div>
+    </div>
+
+    <div class="flex-center gap-20">
+      <button class="btn-tab" [ngClass]="{'btn-tab-active': tab == 1}" (click)="switchTab(1)">Whole year</button>
+      <button class="btn-tab" [ngClass]="{'btn-tab-active': tab == 2}" (click)="switchTab(2)" >Winter term</button>
+      <button class="btn-tab" [ngClass]="{'btn-tab-active': tab == 3}" (click)="switchTab(3)">Summer term</button>
+    </div>
+        <hr style="margin-bottom: 32px; margin-top: -1px" class="hr-custom">
+
+    <div style="margin-bottom: 20px; font-size: 18px; font-weight: 500; display: flex; gap: 10px; align-items: center" >
+     Compulsory courses</div>
+<app-student-course-grid [allCourses]="allCourses" [tab]="tab" [type]="COURSE_TYPE.A"> </app-student-course-grid>
+
+<div class="hr-dashed"></div>
+
+    <div style="margin-bottom: 20px; font-size: 18px; font-weight: 500; display: flex; gap: 10px; align-items: center" >
+      Compulsory elective courses</div>
+    <app-student-course-grid [allCourses]="allCourses" [tab]="tab" [type]="COURSE_TYPE.B"> </app-student-course-grid>
+
+    <div class="hr-dashed"></div>
+
+    <div style="margin-bottom: 20px; font-size: 18px; font-weight: 500; display: flex; gap: 10px; align-items: center" >
+      Optional courses</div>
+    <app-student-course-grid [allCourses]="allCourses" [tab]="tab" [type]="COURSE_TYPE.C"> </app-student-course-grid>
+
+  </div>
+</main>

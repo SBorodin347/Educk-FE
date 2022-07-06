@@ -1,25 +1,30 @@
   <div class="h2">Course</div>
-<hr style="margin: 20px 0" class="hr-custom">
-   <form [formGroup]="form">
-     <div style="margin-bottom: 36px" class="inputs-section">
-       <label>Title</label>
-       <input placeholder="Title" class="input-primary" type="text" formControlName="name" [ngClass]="{'input-primary-invalid' : this.form.controls.name.touched && this.form.controls.name.invalid || ( this.form.controls.name.invalid && invalid) } ">
-       <br>
-       <label>Teacher</label>
-       <select   formControlName="teacherId" [ngClass]="{'input-primary-invalid' : this.form.controls.teacherId.touched && this.form.controls.teacherId.invalid || ( this.form.controls.teacherId.invalid && invalid)}" >
-         <option [hidden]="true" [disabled]="true" [ngValue]="null"> Select a teacher...</option>
-         <option title="teacher" value="{{t.id}}" *ngFor="let t of teachers">{{t.firstName}}&nbsp;{{t.lastName}}</option>
-       </select>
+<hr style="margin: 16px 0 20px 0" class="hr-custom">
+   <form class="flex-column gap-16" [formGroup]="form">
+     <div class="flex-column gap-20">
 
+       <div>
+       <label>Title</label>
+       <input placeholder="Title" class="input-primary" type="text" formControlName="name" [ngClass]="{'input-primary-invalid' :
+       form.controls.name.touched && form.controls.name.invalid || ( form.controls.name.invalid && invalid) } ">
+       </div>
+
+       <div>
+       <label>Teacher</label>
+       <app-user-select [options]="teachers"
+                   [search]="true"
+                   [field]="form.controls.teacherId"
+                   [invalid]="form.controls.teacherId.touched && form.controls.teacherId.invalid || ( form.controls.teacherId.invalid && invalid)"
+                   [defaultPlaceholder]="'Select a teacher...'"
+                   [searchPlaceholder]="'Search by last name'">
+       </app-user-select></div>
      </div>
 
-   <hr style="margin: 20px -32px 9px -32px" class="hr-custom">
-    <br>
+   <hr style="margin: 22px -32px 17px -32px" class="hr-custom">
      <div style="width: 500px; margin: -32px; background: #FCFCFC; border-radius: 0 0 12px 12px; padding: 24px 32px 30px 32px">
-       <div style="text-align: right;">
+       <div class="right-align">
          <button class="btn-cancel" (click)="closeModal()">Cancel</button>
-         <button  class="btn-main"  (click)="add()" >Continue</button>
-<!--         <button class="btn-main"  [disabled]="form.invalid" (click)="edit()" *ngIf="form.value.id !== null">Save Changes</button>-->
+         <button class="btn-main" (click)="add()" >Continue</button>
        </div>
      </div>
 

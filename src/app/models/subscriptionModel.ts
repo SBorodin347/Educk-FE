@@ -1,26 +1,31 @@
-export enum STUDENT_STATUS {COMPLETED="COMPLETED", UNCOMPLETED="UNCOMPLETED", UNACCEPTABLE="UNACCEPTABLE"}
-export enum STUDENT_ASSESSMENT {A="A", B="C", C="C", D="D", E="E", FX="FX", NotGiven="NotGiven"}
+export enum STUDENT_STATUS {REGISTERED="REGISTERED", COMPLETED="COMPLETED", UNCOMPLETED="UNCOMPLETED", UNACCEPTABLE="UNACCEPTABLE"}
+export enum STUDENT_ASSESSMENT {A="A", B="B", C="C", D="D", E="E", FX1="FX1", FX0="FX0", NotGiven="NotGiven"}
 
 export class SubscriptionModel{
-  subjectId: number;
-  studentId: number;
+
+  subjectId: number
+  studentId: number
+
   constructor(subjectId: number, studentId: number) {
     this.subjectId = subjectId;
     this.studentId = studentId;
   }
+
 }
 
 export class SubscriptionModelList {
-  subjectId: number;
-  studentId: number;
-  studentFirstName: string;
-  studentLastName: string;
-  subjectName: string;
-  dateOfRegistration: Date;
-  lastModifiedDate: Date;
-  status: STUDENT_STATUS;
-  assessment: STUDENT_ASSESSMENT;
-  select: boolean;
+
+  subjectId: number
+  studentId: number
+  studentFirstName: string
+  studentLastName: string
+  subjectName: string
+  dateOfRegistration: Date
+  lastModifiedDate: Date
+  status: STUDENT_STATUS
+  assessment: STUDENT_ASSESSMENT
+  select: boolean
+
   constructor(sub: SubscriptionModelList) {
     this.subjectId = sub.subjectId;
     this.studentId = sub.studentId;

@@ -2,24 +2,24 @@
 <app-sidebar [activeLink]="'courses'"></app-sidebar>
 
 <main>
-  <div class="main-wrap">
-
+  <div style="padding-bottom: 44px" class="main-wrap">
     <div class="breadcrumbs">
       <a [routerLink]="'/'" class="crumb-link" >Home</a>
       <i class="crumb-arrow"></i>
       <a [routerLink]="'/courses'" class="crumb-link">Courses</a>
+      <span *ngIf="editCourse"> <i class="crumb-arrow"></i>
+      <a [routerLink]="'/courses/'+id" class="crumb-link">{{nameOfEditedCourse}}</a></span>
       <i class="crumb-arrow"></i>
-      <a   class="crumb-link crumb-link-active">{{getContext()}} course</a>
+      <a class="crumb-link crumb-link-active">{{getContext()}} course</a>
     </div>
     <div style="margin-bottom: 24px" class="h1">{{getContext()}} course</div>
-
 
     <form [formGroup]="form">
 
       <div class="form-template-grid">
         <div  class="form-template-section-rows">
-          <div style="display: flex; align-items: center;"><div class="subtitle">Designation</div></div>
-          <div> <hr class="hr-custom hr-margins"></div>
+          <span class="subtitle">Designation</span>
+         <hr class="hr-custom hr-margins">
           <div>
           <label>Title</label>
             <input [ngClass]="{'input-primary-invalid' : this.form.controls.name.touched && this.form.controls.name.invalid }" class="input-primary" [attr.disabled]="newCourse" type="text" formControlName="name">
@@ -40,86 +40,96 @@
         </div>
 
         <div class="form-template-section-rows">
-          <div style="display: flex; align-items: center;"><div class="subtitle">Ensuring</div></div>
+          <div class="flex-center">
+            <span class="subtitle">Ensuring</span>
+          </div>
           <div> <hr class="hr-custom hr-margins"></div>
           <div>
           <label>Teacher</label>
-            <select  formControlName="teacherId">
-              <option [hidden]="true" [disabled]="true" [ngValue]="null">🕵️&nbsp; Select a teacher...</option>
-              <option [attr.disabled]="newCourse"  [ngValue]="t.id" *ngFor="let t of teachers">{{t.firstName}}&nbsp;{{t.lastName}}</option>
-            </select>
+            <app-user-select [options]="teachers"
+                        [search]="true"
+                        [invalid]="this.form.controls.teacherId.touched && this.form.controls.teacherId.invalid"
+                        [field]="this.form.controls.teacherId"
+                        [defaultPlaceholder]=""
+                        [searchPlaceholder]="'Search by last name'">
+            </app-user-select>
+
           </div>
           <div>
             <label>Status</label>
-            <select  formControlName="status">
-              <option [hidden]="true" [disabled]="true" [ngValue]="null"></option>
-              <option [ngValue]="STATUS.APPROVED">Approved course</option>
-              <option [ngValue]="STATUS.REFUSED">Refused course</option>
-              <option *ngIf="editCourse" [ngValue]="STATUS.CANCELLED">Cancelled course</option>
-            </select>
+            <app-language-select
+              [options]="statuses"
+              [field]="this.form.controls.status"
+              [defaultPlaceholder]="'Select a status...'">
+            </app-language-select>
           </div>
         </div>
 
-        <div   class="form-template-section-rows" >
-          <div style="display: flex; align-items: center;"><div class="subtitle">Basic Information</div></div>
+        <div class="form-template-section-rows" >
+          <span class="subtitle">Basic Information</span>
           <div> <hr  class="hr-custom hr-margins"></div>
 
-          <div  style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 16px">
-            <div>
-              <label>Type</label>
-              <select  formControlName="subjectType">
-                <option [hidden]="true" [disabled]="true" [ngValue]="null"></option>
-                <option [ngValue]="TYPE.A">Compulsory course (A)</option>
-                <option [ngValue]="TYPE.B">Compulsory elective course (B)</option>
-                <option [ngValue]="TYPE.C">Optional course (C)</option>
-              </select>
-            </div>
-            <div>
-              <label>Semester</label>
-              <select  formControlName="semester">
-                <option [hidden]="true" [disabled]="true" [ngValue]="null"></option>
-                <option [ngValue]="SEMESTER.WINTER">Winter semester</option>
-                <option [ngValue]="SEMESTER.SUMMER">Summer semester</option>
-              </select>
-            </div>
 
-          </div>
-
-          <div  style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 16px">
-          <div style="display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); gap: 16px">
-            <div>
-            <label>Hours</label>
-              <input  [ngClass]="{'input-primary-invalid' : this.form.controls.hours.touched && this.form.controls.hours.invalid }"  class="input-primary" type="number" formControlName="hours">
-            </div>
-            <div>
-            <label>Credit</label>
-              <input [ngClass]="{'input-primary-invalid' : this.form.controls.credit.touched && this.form.controls.credit.invalid }" class="input-primary" type="number" formControlName="credit">
-            </div>
-          </div>
+          <div class="grid-two">
 
           <div>
-          <label>Language</label>
-            <select  formControlName="language">
-              <option [hidden]="true" [disabled]="true" [ngValue]="null"></option>
-              <option [ngValue]="LANGUAGE.SLOVAK">Slovak</option>
-              <option [ngValue]="LANGUAGE.ENGLISH">English</option>
-              <option [ngValue]="LANGUAGE.RUSSIAN">Russian</option>
-              <option [ngValue]="LANGUAGE.HUNGARIAN">Hungarian</option>
-              <option [ngValue]="LANGUAGE.CZECH">Czech</option>
-            </select>
+            <label>Type</label>
+            <app-language-select
+              [options]="types"
+              [transformType]="'courseType'"
+              [field]="this.form.controls.subjectType"
+              [defaultPlaceholder]="'Select a type...'">
+            </app-language-select>
           </div>
+            <div>
+              <label>Semester</label>
+              <app-language-select
+                [options]="terms"
+                [transformType]="'courseSemester'"
+                [field]="this.form.controls.semester"
+                [defaultPlaceholder]="'Select semester...'">
+              </app-language-select>
+            </div>
           </div>
-        </div>
+          <div class="grid-two">
+            <div class="grid-two">
+              <div>
+                <label>Hours</label>
+                <input  [ngClass]="{'input-primary-invalid' : this.form.controls.hours.touched && this.form.controls.hours.invalid }"  class="input-primary" type="number" formControlName="hours">
+              </div>
+              <div>
+                <label>Credit</label>
+                <input [ngClass]="{'input-primary-invalid' : this.form.controls.credit.touched && this.form.controls.credit.invalid }" class="input-primary" type="number" formControlName="credit">
+              </div>
+            </div>
 
+          <div>
+            <label>Language</label>
+            <app-language-select
+              [options]="languages"
+              [field]="this.form.controls.language"
+              [defaultPlaceholder]="'Select a language...'">
+            </app-language-select>
+          </div>
+          </div>
+
+          </div>
         <div>
+
           <div class="fortoggle">
             <div style="display: flex; align-items: center;"><div class="subtitle">Access Settings</div></div>
             <div> <hr  class="hr-custom hr-margins"></div>
      <div class="flex-center-spaceBetween">
        <span style="color: #787E8F" class="h3">Allow students to subscribe</span>
-       <input (change)="onChangeToggle($event)" class="toggle"  formControlName="accessible" type="checkbox" id="switch" />
-       <label class="toggle-label" for="switch">Toggle</label>
+       <input (change)="toggleAccessible($event)" class="toggle" formControlName="accessible" type="checkbox" id="sub" />
+       <label class="toggle-label" for="sub">Toggle</label>
      </div>
+
+            <div class="flex-center-spaceBetween">
+              <span style="color: #787E8F" class="h3">Teacher's password required</span>
+              <input (change)="toggleTeacherPassReq($event)" class="toggle" formControlName="teacherPasswordRequired" type="checkbox" id="teacherPass" />
+              <label class="toggle-label" for="teacherPass">Toggle</label>
+            </div>
 
           </div>
         </div>
@@ -133,7 +143,7 @@
     <button *ngIf="editCourse" (click)="deleteCourse()" class="btn-remove">Remove</button>
     <div *ngIf="newCourse" ></div>
     <div class="flex-center gap-12">
-      <button [routerLink]="'/courses'" class="btn-secondary">Cancel</button>
+      <button (click)="cancelChanges()" class="btn-secondary">Cancel</button>
       <button *ngIf="newCourse" (click)="createCourse()" class="btn-main">Create course</button>
     <button *ngIf="editCourse" (click)="updateCourse()" class="btn-main">Update</button>
     </div>

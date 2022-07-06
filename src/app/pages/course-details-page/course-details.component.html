@@ -1,81 +1,112 @@
 <app-header></app-header>
 <app-sidebar [activeLink]="'courses'"></app-sidebar>
-<main >
+
+<ng-container *ngxPermissionsOnly="[ROLE.REFERENT, ROLE.ADMIN]">
+<app-course-invite-modal *ngIf="invitePopup" (switchInviteModal)="switchInviteModal()" [url]="url" [id]="id">
+</app-course-invite-modal>
+</ng-container>
+
+<app-course-assessment  *ngIf="assessmentPopup"
+                        [detailedSub]="detailedSub"
+                        [userId]="detailedSubject.teacherId"
+                        [passwordReq]="detailedSubject.teacherPasswordRequired">
+</app-course-assessment>
+
+<main>
 
   <div *ngIf="detailedSubject!=null" class="main-wrap">
     <div class="breadcrumbs">
-      <a [routerLink]="'/'" class="crumb-link" >Home</a>
+      <a [routerLink]="'/'" class="crumb-link">Home</a>
       <i class="crumb-arrow"></i>
       <a [routerLink]="'/courses'"  class="crumb-link">Courses</a>
       <i class="crumb-arrow"></i>
       <a  [href]="currentPageUrl" class="crumb-link crumb-link-active">{{detailedSubject.name}}</a>
     </div>
-   <div style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between" >
-<!--     <button (click)="goCourses()" class="back-circle"><i class="img-arrow"></i></button>-->
 
-     <span style="margin-right: 8px;" class="h1">{{detailedSubject.name}}</span>
-<div class="gap-12 flex-center">
+    <div class="flex-center-spaceBetween mb-12">
+      <span class="h1">{{detailedSubject.name}}</span>
 
-  <div *ngxPermissionsOnly="['ROLE_STUDENT']" >
-    <button *ngIf="isSubscribed==true" [disabled]="!detailedSubject.accessible" class="btn-secondary" (click)="unsubscribeFromCourse()">Unsubscribe</button>
-    <button *ngIf="isSubscribed==false" class="btn-main" [disabled]="!detailedSubject.accessible || detailedSubject.status==STATUS.CANCELLED || detailedSubject.status==STATUS.REFUSED" (click)="subscribeForCourse()">Subscribe</button>
+      <div class="gap-12 flex-center">
 
+<!--STUDENT CONTROLS-->
+        <ng-container *ngxPermissionsOnly="ROLE.STUDENT">
+
+            <button *ngIf="!isSubscribed; else: subscribedStudent" class="btn-main"
+                    [disabled]="!detailedSubject.accessible || detailedSubject.status==STATUS.CANCELLED
+                    || detailedSubject.status==STATUS.REFUSED" (click)="subscribeForCourse()">Subscribe
+            </button>
+            <ng-template #subscribedStudent>
+                <button [disabled]="!detailedSubject.accessible" class="btn-secondary"
+                (click)="unsubscribeFromCourse()">Unsubscribe
+                </button>
+            </ng-template>
+
+        </ng-container>
+
+<!--ADMIN CONTROLS-->
+        <button *ngxPermissionsOnly="[ROLE.ADMIN, ROLE.REFERENT]"
+            [routerLink]="['/courses', detailedSubject.id,'edit']" class="btn-secondary">Edit course
+        </button>
+
+        <button (click)="switchInviteModal()" style="cursor: auto" class="tooltip btn-onlyicon">
+        <span style="bottom: 48px" class="tooltiptext">Subscribers</span>
+        <i class="users-icon"> </i> {{subscriptionCourses.length}} </button>
   </div>
-  <button *ngxPermissionsOnly="['ROLE_ADMIN', 'ROLE_REFERENT']" [routerLink]="['/courses', detailedSubject.id,'edit']" class="btn-secondary">Edit course</button>
 
-  <button style="cursor: auto" class="tooltip btn-onlyicon">
-    <span style="bottom: 48px" class="tooltiptext">Subscribers</span>
-    <i class="users-icon"> </i> {{subscriptionCourses.length}} </button>
 </div>
-
-   </div>
-    <div style="display: flex; align-items: center; margin-bottom: 32px">
-
-      <span class="h4">Taught by</span> <div><img  class="teacher-avatar" src="https://www.fpv.umb.sk/app/accountJpegPhoto.php?ID=9457&width=202" ></div>
+    <div class="flex-center-spaceBetween" style="margin-bottom: 32px">
+    <div class="flex-center">
+      <span class="h4">Taught by</span>
+      <img class="teacher-avatar" src="https://www.fpv.umb.sk/app/accountJpegPhoto.php?ID=9457&width=202" >
       <span class="h3">{{detailedSubject.teacherFirstName + " " + detailedSubject.teacherLastName}}</span>
       <div class="vl"></div>
-      <span  class="h4">Last update: {{detailedSubject.lastChangeDate}}</span>
+      <span class="h4">Last update: {{detailedSubject.lastChangeDate}}</span>
       <div class="vl"></div>
       <div *ngIf="detailedSubject.status == STATUS.APPROVED"  class="tooltip flex-center">
-        <span style="bottom: 24px; left: 100%" class="tooltiptext">{{capitalString(detailedSubject.status)}}</span>
-        <i  class="approved-icon"></i>
+        <span style="bottom: 24px; left: 100%" class="tooltiptext">{{detailedSubject.status | textTransform}}</span>
+        <i class="approved-icon"></i>
       </div>
       <div  class="tooltip flex-center">
-      <span style="bottom: 28px; left: 125%" class="tooltiptext">{{capitalString(detailedSubject.status)}}</span>
+      <span style="bottom: 28px; left: 125%" class="tooltiptext">{{detailedSubject.status | textTransform}}</span>
       <svg *ngIf="detailedSubject.status == STATUS.REFUSED" class="copy-icon">
         <use xlink:href="#nonechecked"></use>
       </svg>
       </div>
-      <div *ngIf="!detailedSubject.accessible"  class="vl"></div>
-      <div *ngIf="!detailedSubject.accessible" class="tooltip flex-center">
-        <span style="bottom: 24px; left: -60%" class="tooltiptext">This course is locked</span>
-        <div style="gap: 8px" class="flex-center"><i  class="locked-icon"></i></div>
-      </div>
+      <div class="vl"></div>
+            <span  class="h3">{{detailedSubject.subjectCode}}</span>
     </div>
-    <hr class="hr-custom" style="margin-bottom: 28px">
-
-    <div *ngxPermissionsOnly="[ROLE.ADMIN, ROLE.REFERENT]">
-    <div style="margin-bottom: 24px" class="flex-center-spaceBetween">
-      <div style="height: 40px" class="flex-center"> <i class="description-dot"></i> <span  class="h2">Subscriptions </span></div>
-      <div style="gap: 16px"  *ngIf="toolbarVisible" class="showing flex-center-spaceBetween">
-        <button (click)="exportStudents()" class="btn-secondary">Export</button>
-        <div style="border-left: 1px solid #E3E3E3; width: 1px; height: 36px"></div>
-        <button (click)="removeStudent()" class=" btn-remove"><i class="trash-icon"></i>Remove</button>
-      </div>
+    <div>
     </div>
-    <app-subscriptions-list
-      (closeSettings)="hideToolbar()"
-      (openSettings)="showToolbar()"
-      (removeSubscription)="deleteStudentFromCourse($event)"
-      [subscriptions]="subscriptionCourses">
-    </app-subscriptions-list>
-  </div>
+    </div>
+    <hr class="hr-custom mb-28" >
 
-    <div *ngxPermissionsOnly="[ROLE.STUDENT]">
+
+<!-- SUBSCRIPTIONS TABLE -->
+   <ng-container *ngxPermissionsOnly="[ROLE.ADMIN, ROLE.REFERENT, ROLE.TEACHER]">
+      <div class="flex-center-spaceBetween mb-20">
+        <span class="h2">Subscriptions</span>
+        <div *ngIf="toolbarVisible" class="showing flex-center-spaceBetween gap-16">
+          <button (click)="exportStudent()" class="btn-secondary">Export</button>
+          <span class="vertical-hr"></span>
+          <button (click)="removeStudent()" class=" btn-remove"><i class="trash-icon"></i>Remove</button>
+        </div>
+      </div>
+
+      <app-subscriptions-list
+        (openDetailsOfSubscription)="openDetailsOfSub($event)"
+        (closeSettings)="hideToolbar()"
+        (openSettings)="showToolbar()"
+        (removeSubscription)="deleteStudentFromCourse($event)"
+        [subscriptions]="subscriptionCourses">
+      </app-subscriptions-list>
+    </ng-container>
+
+    <ng-container *ngxPermissionsOnly="[ROLE.STUDENT]">
       <div *ngIf="isSubscribed">
-        <div  style="height: 40px; margin-bottom: 24px" class="flex-center"> <i class="description-dot"></i> <span  class="h2">My activity</span></div>
-        <app-subscribed-course-info [currentSub]="subscriptionOfCurrentUser" > </app-subscribed-course-info>
+        <div class="mb-20"><span class="h2">My activity</span></div>
+        <app-subscribed-course-info [currentSub]="subscriptionOfCurrentUser"> </app-subscribed-course-info>
       </div>
-    </div>
+    </ng-container>
+
   </div>
 </main>
